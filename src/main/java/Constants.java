@@ -12,6 +12,9 @@ public class Constants {
     public static final String VALUE = "value";
     //page-type
     public static final String TYPE = "type";
+    public static final String PROPERTY = "property";
+    public static final String VALUE_TYPE = "value_type";
+    public static final String VALUE_TYPE_OBJECT = "object";
 //    public static final
 
     //language
@@ -32,8 +35,13 @@ public class Constants {
     public static final String RUSSIA = "http://ru.dbpedia.org";
     public static final String HUNGARI = "http://hu.dbpedia.org";
 
+    public static final String VIETNAMESE = "http://vi.dbpedia.org";
+
     //index folder
     public static final String VIETNAMESE_INDEX = "index-vi";
+    public static final String ENGLISH_INDEX = "index-en";
+    public static final String GERMANY_INDEX = "index-de";
+    public static final String NETHERLAND_INDEX = "index-nl";
     public static final String ONTOLOGY_2016 = "dbpedia_2016-04.owl";
 
     public static final String TYPE_THING = "http://www.w3.org/2002/07/owl#Thing";
@@ -47,6 +55,8 @@ public class Constants {
     public static final String pattern_REMOVE1 = "\\d_tháng_\\d";
     public static final String pattern_REMOVE5 = "Tháng_\\d_năm_\\d";
     public static final String REMOVE6 = "Hàng_không_năm_";
+
+    public static final String LINK_TEMPLATE = "http://mappings.dbpedia.org/server/templatestatistics/vi/?template=";
 
 
     public static void main(String []args){

@@ -93,7 +93,7 @@ public class ExtractDbpediaDump {
     public static void main(String args[]){
         Logger logger= Logger.getLogger(ExtractDbpediaDump.class.getName());
         //logger.debug("hello");
-        String outLucene = "index-vi";
+        String outLucene = "index-nl"; //index-vi, index-en, index-de
         IndexWriter indexWriter=null;
         try {
             indexWriter = new IndexWriter(FSDirectory.open(new File(outLucene)), new WhitespaceAnalyzer());
@@ -101,7 +101,7 @@ public class ExtractDbpediaDump {
             //logger.error("Lucene error!");
             System.exit(1);
         }
-        String inDBpediaFolder = "vidump";
+        String inDBpediaFolder = "nldump"; //vidump, endump,dedump
         File folder = new File(inDBpediaFolder);
         File[] listOfFiles = folder.listFiles();
         try{

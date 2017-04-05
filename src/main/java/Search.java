@@ -64,7 +64,7 @@ public class Search {
     }
     public static void main(String[] args){
         try{
-            String queryname = "A";
+            String queryname = "Hà_Nội";
             Search search = new Search(Constants.VIETNAMESE_INDEX);
             Term term = new Term(Constants.PAGE, queryname);
             //create the term query object
@@ -89,6 +89,162 @@ public class Search {
 //
 //        System.out.print(hashMapInterLanguageLink.get(Constants.RUSSIA));
 
+    }
+
+    public static HashMap<String, String> getInterLanguageLink(String queryname){
+        HashMap<String, String> hashMap = new HashMap<>();
+        try{
+            Search search = new Search(Constants.ENGLISH_INDEX);
+            Term term = new Term(Constants.PAGE, queryname);
+            //create the term query object
+            Query query = new TermQuery(term);
+            TopDocs hits = search.search(query);
+            for(ScoreDoc scoreDoc : hits.scoreDocs) {
+                Document doc = search.getDocument(scoreDoc);
+                String p = doc.get(Constants.PAGE);
+                //if(p.equals(queryname)){
+//                if(search.findLanguage(doc.get(Constants.VALUE))!=-1){
+//                    System.out.println("Value: "+ doc.get("page")+ doc.get("value"));
+//                }
+                if(doc.get(Constants.VALUE).contains(Constants.VIETNAMESE)){
+                    hashMap.put(queryname, doc.get(Constants.VALUE).replace(Constants.VIETNAMESE+"/resource/",""));
+                }
+                // }
+            }
+        }catch (Exception e){
+            e.getMessage();
+        }
+        return hashMap;
+    }
+
+    public static HashMap<String, String> getInterLanguageLink_de(String queryname){
+        HashMap<String, String> hashMap = new HashMap<>();
+        try{
+            Search search = new Search(Constants.GERMANY_INDEX);
+            Term term = new Term(Constants.PAGE, queryname);
+            //create the term query object
+            Query query = new TermQuery(term);
+            TopDocs hits = search.search(query);
+            for(ScoreDoc scoreDoc : hits.scoreDocs) {
+                Document doc = search.getDocument(scoreDoc);
+                String p = doc.get(Constants.PAGE);
+                //if(p.equals(queryname)){
+//                if(search.findLanguage(doc.get(Constants.VALUE))!=-1){
+//                    System.out.println("Value: "+ doc.get("page")+ doc.get("value"));
+//                }
+                if(doc.get(Constants.VALUE).contains(Constants.VIETNAMESE)){
+                    hashMap.put(queryname, doc.get(Constants.VALUE).replace(Constants.VIETNAMESE+"/resource/",""));
+                }
+                // }
+            }
+        }catch (Exception e){
+            e.getMessage();
+        }
+        return hashMap;
+    }
+
+    public static HashMap<String, String> getInterLanguageLink_nl(String queryname){
+        HashMap<String, String> hashMap = new HashMap<>();
+        try{
+            Search search = new Search(Constants.NETHERLAND_INDEX);
+            Term term = new Term(Constants.PAGE, queryname);
+            //create the term query object
+            Query query = new TermQuery(term);
+            TopDocs hits = search.search(query);
+            for(ScoreDoc scoreDoc : hits.scoreDocs) {
+                Document doc = search.getDocument(scoreDoc);
+                String p = doc.get(Constants.PAGE);
+                //if(p.equals(queryname)){
+//                if(search.findLanguage(doc.get(Constants.VALUE))!=-1){
+//                    System.out.println("Value: "+ doc.get("page")+ doc.get("value"));
+//                }
+                if(doc.get(Constants.VALUE).contains(Constants.VIETNAMESE)){
+                    hashMap.put(queryname, doc.get(Constants.VALUE).replace(Constants.VIETNAMESE+"/resource/",""));
+                }
+                // }
+            }
+        }catch (Exception e){
+            e.getMessage();
+        }
+        return hashMap;
+    }
+
+    public static HashMap<String, String> getViInterLanguageLink(String queryname){
+        HashMap<String, String> hashMap = new HashMap<>();
+        try{
+            Search search = new Search(Constants.VIETNAMESE_INDEX);
+            Term term = new Term(Constants.PAGE, queryname);
+            //create the term query object
+            Query query = new TermQuery(term);
+            TopDocs hits = search.search(query);
+            for(ScoreDoc scoreDoc : hits.scoreDocs) {
+                Document doc = search.getDocument(scoreDoc);
+                String p = doc.get(Constants.PAGE);
+                //if(p.equals(queryname)){
+//                if(search.findLanguage(doc.get(Constants.VALUE))!=-1){
+//                    System.out.println("Value: "+ doc.get("page")+ doc.get("value"));
+//                }
+                if(doc.get(Constants.VALUE).contains(Constants.ENGLISH)){
+                    hashMap.put(queryname, doc.get(Constants.VALUE).replace(Constants.ENGLISH+"/resource/",""));
+                }
+                // }
+            }
+        }catch (Exception e){
+            e.getMessage();
+        }
+        return hashMap;
+    }
+
+    public static HashMap<String, String> getViInterLanguageLink_de(String queryname){
+        HashMap<String, String> hashMap = new HashMap<>();
+        try{
+            Search search = new Search(Constants.VIETNAMESE_INDEX);
+            Term term = new Term(Constants.PAGE, queryname);
+            //create the term query object
+            Query query = new TermQuery(term);
+            TopDocs hits = search.search(query);
+            for(ScoreDoc scoreDoc : hits.scoreDocs) {
+                Document doc = search.getDocument(scoreDoc);
+                String p = doc.get(Constants.PAGE);
+                //if(p.equals(queryname)){
+//                if(search.findLanguage(doc.get(Constants.VALUE))!=-1){
+//                    System.out.println("Value: "+ doc.get("page")+ doc.get("value"));
+//                }
+                if(doc.get(Constants.VALUE).contains(Constants.GERMANY)){
+                    hashMap.put(queryname, doc.get(Constants.VALUE).replace(Constants.GERMANY+"/resource/",""));
+                }
+                // }
+            }
+        }catch (Exception e){
+            e.getMessage();
+        }
+        return hashMap;
+    }
+
+    public static HashMap<String, String> getViInterLanguageLink_nl(String queryname){
+        HashMap<String, String> hashMap = new HashMap<>();
+        try{
+            Search search = new Search(Constants.VIETNAMESE_INDEX);
+            Term term = new Term(Constants.PAGE, queryname);
+            //create the term query object
+            Query query = new TermQuery(term);
+            TopDocs hits = search.search(query);
+            for(ScoreDoc scoreDoc : hits.scoreDocs) {
+                Document doc = search.getDocument(scoreDoc);
+                String p = doc.get(Constants.PAGE);
+                //if(p.equals(queryname)){
+//                if(search.findLanguage(doc.get(Constants.VALUE))!=-1){
+//                    System.out.println("Value: "+ doc.get("page")+ doc.get("value"));
+//                }
+                if(doc.get(Constants.VALUE).contains(Constants.NETHERLAND)){
+                    hashMap.put(queryname, doc.get(Constants.VALUE).replace(Constants.NETHERLAND+"/resource/",""));
+                }
+                // }
+            }
+        }catch (Exception e){
+            e.getMessage();
+        }
+        return hashMap;
     }
 
     private static HashMap<String, String> hashMapInterLanguageLink = new HashMap<>();

@@ -17,21 +17,25 @@ import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
- * Created by vieta on 21/11/2016.
+ * Created by vieta on 20/2/2017.
  */
-public class ExtractDbpediaDumpType {
+public class ExtractAllDBpediaDump  {
+
     static class LuceneStatementManager extends RDFHandlerBase {
 
         private IndexWriter indexWriter;
         private String lang;
+        private String valueType;
         Pattern itTrick = Pattern.compile("(.*)__.+__1");
         Logger logger = Logger.getLogger(ExtractDbpediaDump.class.getName());
         private int count = 0;
 
-        public LuceneStatementManager(IndexWriter indexWriter, String lang) {
+        public LuceneStatementManager(IndexWriter indexWriter, String lang, String valueType) {
             this.indexWriter = indexWriter;
             this.lang = lang;
+            this.valueType = valueType;
         }
 
         public int getCount() {
@@ -63,8 +67,9 @@ public class ExtractDbpediaDumpType {
             Document doc = new Document();
             doc.add(new Field(Constants.PAGE, subject, Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.add(new Field(Constants.LANGUAGE, lang, Field.Store.YES, Field.Index.NOT_ANALYZED));
-//            doc.add(new Field("property", simpleRelation, Field.Store.YES, Field.Index.NOT_ANALYZED));
-            doc.add(new Field(Constants.TYPE, simpleObject, Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.add(new Field(Constants.PROPERTY, simpleRelation, Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.add(new Field(Constants.VALUE, simpleObject, Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.add(new Field(Constants.VALUE_TYPE, valueType, Field.Store.YES, Field.Index.NOT_ANALYZED));
 
 //            doc.add(new Field("lang-page", lang + ":" + simpleSubject, Field.Store.YES, Field.Index.NOT_ANALYZED));
 //            doc.add(new Field("lang-page-property", lang + ":" + simpleSubject + ":" + simpleRelation, Field.Store.YES, Field.Index.NOT_ANALYZED));
@@ -77,18 +82,19 @@ public class ExtractDbpediaDumpType {
             }
 
 //			System.out.println(subject);
-//			System.out.println(relation);
-//			System.out.println(object);
+////			System.out.println(relation);
+////			System.out.println(object);
 //
 //			System.out.println(simpleRelation);
+//            System.out.println(simpleObject);
 //			System.out.println();
         }
 
     }
     public static void main(String args[]){
-        Logger logger= Logger.getLogger(ExtractDbpediaDump.class.getName());
+        Logger logger= Logger.getLogger(ExtractAllDBpediaDump.class.getName());
         //logger.debug("hello");
-        String outLucene = "type";
+        String outLucene = "ALL_DB_DUMP_NL";
         IndexWriter indexWriter=null;
         try {
             indexWriter = new IndexWriter(FSDirectory.open(new File(outLucene)), new WhitespaceAnalyzer());
@@ -96,10 +102,11 @@ public class ExtractDbpediaDumpType {
             //logger.error("Lucene error!");
             System.exit(1);
         }
-        String inDBpediaFolder = "dbpedia_type";
+        String inDBpediaFolder = "dbpedia_template_nl"; //"dbpedia_template"; --> English
         File folder = new File(inDBpediaFolder);
         File[] listOfFiles = folder.listFiles();
         String lang;
+        String valueType;
         try{
             for(File file : listOfFiles){
                 if(file.isFile()){
@@ -110,11 +117,17 @@ public class ExtractDbpediaDumpType {
                         lang = nameFile.substring(nameFile.length() - 6, nameFile.length() - 4);
                     }
 
+                    if(nameFile.contains("objects")){
+                        valueType = Constants.VALUE_TYPE_OBJECT;
+                    }else{
+                        valueType = "";
+                    }
+
                     try{
                         InputStream fileInputStream = new FileInputStream(nameFile);
                         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream,"utf8");
                         RDFParser rdfParser = Rio.createParser(RDFFormat.NTRIPLES);
-                        LuceneStatementManager handler = new LuceneStatementManager(indexWriter,lang);
+                        LuceneStatementManager handler = new LuceneStatementManager(indexWriter,lang,valueType);
                         rdfParser.setRDFHandler(handler);
 
                         ParserConfig config = rdfParser.getParserConfig();
